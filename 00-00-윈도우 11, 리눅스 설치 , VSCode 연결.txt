@@ -1,0 +1,35 @@
+윈도우에 리눅스 가상환경 설치
+    https://cuffyluv.tistory.com/245
+
+    1. CPU 가성환경 활성화 확인
+
+    2. 리눅스 설치
+
+    3. WSL2를 통한 VsCode와 연결
+
+    4. 리눅스에 아나콘다 설치
+
+리눅스에 아나콘다 설치   
+    https://dambi-ml.tistory.com/6
+
+   1. 파이선 10 가상환경 설정
+      conda create -n LINUX1 python=3.10
+
+      coda activate LINUX1
+
+   2. 실습에 사용된 버전 pip를 통해 설치
+        Keras version: 3.10.0
+        Keras NLP version: 0.21.1
+        TensorFlow version: 2.19.0
+        TensorFlow Text version: 2.19.0
+
+리눅스      
+   1. 접속정보
+      redinblue / 1612
+
+   2. 윈도우에서 리눅스 폴더 확인
+      explorer.exe .
+
+   3. 리눅스 조회 / 중지
+      wsl -l -v
+      wsl --shutdown
