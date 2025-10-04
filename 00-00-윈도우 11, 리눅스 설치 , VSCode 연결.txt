@@ -33,3 +33,102 @@
    3. 리눅스 조회 / 중지
       wsl -l -v
       wsl --shutdown
+      wsl -d Ubuntu
+	   wsl --set-default Ubuntu
+	   wsl --unregister Ubuntu-24.04
+	  
+	  conda activate pybuild
+	  
+	  conda info --envs
+	  
+리눅스 GPU 설정	
+
+	VIDIA® GPU drivers - CUDA® 11.2 requires 450.80.02 or higher.
+	CUDA® Toolkit - TensorFlow supports CUDA® 11.2 (TensorFlow >= 2.5.0)
+	CUPTI ships with the CUDA® Toolkit.
+	cuDNN SDK 8.1.0 cuDNN versions
+	(Optional) TensorRT 6.0 to improve latency and throughput for inference on some models.
+
+	https://blog.naver.com/techshare/223876270703?trackingCode=rss
+	
+	$ wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
+
+	$ sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
+
+	$ wget https://developer.download.nvidia.com/compute/cuda/12.9.0/local_installers/cuda-repo-wsl-ubuntu-12-9-local_12.9.0-1_amd64.deb
+
+	$ sudo dpkg -i cuda-repo-wsl-ubuntu-12-9-local_12.9.0-1_amd64.deb
+
+	$ sudo cp /var/cuda-repo-wsl-ubuntu-12-9-local/cuda-*-keyring.gpg /usr/share/keyrings/
+
+	$ sudo apt-get update
+
+	$ sudo apt-get -y install cuda-toolkit-12-9
+	
+	$ /usr/local/cuda-12.9/bin/nvcc --version
+	$ which nvidia-smi
+	/usr/lib/wsl/lib/nvidia-smi
+	$ nvidia-smi
+	
+	conda create --name pybuild python=3.10 -y
+
+    conda activate pybuild
+	python -m pip install nvidia-cudnn-cu12
+
+	python -m pip install tensorflow
+	
+	
+==============================참조======================================
+(base) redinblue@PYC:~/Download$ nvidia-smi
+Sat Oct  4 08:47:19 2025
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.88         CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3070 Ti     On  |   00000000:08:00.0  On |                  N/A |
+| 45%   48C    P0             73W /  310W |    1150MiB /   8192MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A             420      G   /Xwayland                             N/A      |
++-----------------------------------------------------------------------------------------+
+
+(base) redinblue@PYC:~/Download$ nvcc -V
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2023 NVIDIA Corporation
+Built on Fri_Jan__6_16:45:21_PST_2023
+Cuda compilation tools, release 12.0, V12.0.140
+Build cuda_12.0.r12.0/compiler.32267302_0
+
+쿠다 버전확인
+	https://developer.nvidia.com/cuda-gpus
+		CUDA Compute Capability 8.6
+		Doubled FP32 performance per SM on Ampere GPUs
+		
+
+쿠다 버전에 맞는 SDK 확인
+	https://forums.developer.nvidia.com/t/cuda-compatibility-between-nvidia-rtx-a5000-and-geforce-rtx-4060-ti/264216
+		AMPERE / 8.6
+		11.1 - 11.4
+		
+쿠다 SDK 설치	 - 11.4	
+	https://anaconda.org/nvidia/cuda-toolkit	
+	conda install nvidia/label/cuda-11.8.0::cuda-toolkit
+	
+쿠다 CuDNN 설치
+	https://anaconda.org/nvidia/cudnn
+	https://developer.nvidia.com/rdp/cudnn-archive
+	
+		pip install nvidia-pyindex
+		pip install nvidia-cudnn
+	
+		
+conda create -n LINUX3 python=3.9 
